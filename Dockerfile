@@ -1,15 +1,26 @@
 FROM ubuntu:trusty
-MAINTAINER Fernando Mayo <fernando@tutum.co>
+MAINTAINER Luis Muniz <lmu@b2boost.net>
 
 # Install RabbitMQ
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server pwgen
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server
+
+
+# ENABLE MANAGEMENT INTERFACE
 RUN rabbitmq-plugins enable rabbitmq_management
 
-# Add scripts
-ADD run.sh /run.sh
-ADD set_rabbitmq_password.sh /set_rabbitmq_password.sh
+#COPY CONFIG FILE
+ADD rabbitmq.config /etc/rabbitmq/rabbitmq.config
+
+ADD configure.sh /configure.sh
 RUN chmod 755 ./*.sh
 
+CMD ["/configure.sh"]
+
+# EXPOSE RABBITMQ PORT AND MANAGEMENT UI PORT
 EXPOSE 5672 15672
-CMD ["/run.sh"]
+
+# SET THE CONTAINER ENTRYPOINT TO THE RABBITMQ EXECUTABLE
+ENTRYPOINT /usr/sbin/rabbitmq-server
+
+
