@@ -12,6 +12,7 @@ RUN rabbitmq-plugins enable rabbitmq_management
 ADD run.sh /run.sh
 RUN chmod 755 ./*.sh
 
+# EXPOSE RABBITMQ PORT AND MANAGEMENT UI PORT
 EXPOSE 5672 15672
 
 # SET THE CONTAINER ENTRYPOINT TO THE RABBITMQ EXECUTABLE
