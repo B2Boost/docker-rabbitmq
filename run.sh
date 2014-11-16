@@ -4,7 +4,7 @@
 if [ -f /.configured ]; then
 	echo "RabbitMQ already configured!"
     echo "Starting rabbitmq server ..."
-    service rabbitmq-server restart
+    exec /usr/sbin/rabbitmq-server
 	exit 0
 fi
 
@@ -39,5 +39,5 @@ echo "Starting rabbitmq server ..."
 
 #service rabbitmq-server restart
 
-/usr/sbin/rabbitmq-server
+exec /usr/sbin/rabbitmq-server
 
