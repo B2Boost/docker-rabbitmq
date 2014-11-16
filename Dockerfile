@@ -1,6 +1,9 @@
 FROM ubuntu:trusty
 MAINTAINER Luis Muniz <lmu@b2boost.net>
 
+# Make sure rabbitmq always uses one host name, not the docker assigned host name
+ENV HOSTNAME localhost
+
 # Install RabbitMQ
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server
